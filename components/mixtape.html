@@ -1,0 +1,139 @@
+<!-- Retro Vinyl Player - Complete Redesign -->
+<div class="window mixtape-window" id="mixtape-window" style="display: none;">
+    <div class="window-header">
+        <div class="window-title">
+            <i class="fas fa-record-vinyl"></i>
+            Vinyl Player
+        </div>
+        <div class="window-controls">
+            <button class="minimize-btn">_</button>
+            <button class="maximize-btn">□</button>
+            <button class="close-btn">×</button>
+        </div>
+    </div>
+    <div class="window-content vinyl-content">
+        <!-- Vinyl Record Player -->
+        <div class="vinyl-player">
+            <!-- Turntable Base -->
+            <div class="turntable-base">
+                <!-- Vinyl Record -->
+                <div class="vinyl-record" id="vinyl-record">
+                    <div class="vinyl-surface">
+                        <!-- Vinyl grooves -->
+                        <div class="vinyl-groove groove-1"></div>
+                        <div class="vinyl-groove groove-2"></div>
+                        <div class="vinyl-groove groove-3"></div>
+                        <div class="vinyl-groove groove-4"></div>
+                        <div class="vinyl-groove groove-5"></div>
+                        <div class="vinyl-groove groove-6"></div>
+                        <div class="vinyl-groove groove-7"></div>
+                        <div class="vinyl-groove groove-8"></div>
+                        
+                        <!-- Center Label -->
+                        <div class="vinyl-label">
+                            <div class="label-ring"></div>
+                            <div class="label-content">
+                                <div class="label-logo">♪ RETRO ♪</div>
+                                <div class="track-info">
+                                    <div class="track-title" id="vinyl-track-title">Select Track</div>
+                                    <div class="track-artist" id="vinyl-track-artist">Artist</div>
+                                </div>
+                                <div class="label-number">45 RPM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tonearm -->
+                <div class="tonearm" id="tonearm">
+                    <div class="tonearm-base"></div>
+                    <div class="tonearm-arm"></div>
+                    <div class="tonearm-head"></div>
+                </div>
+                
+                <!-- Turntable Controls -->
+                <div class="turntable-controls">
+                    <div class="speed-selector">
+                        <div class="speed-label">SPEED</div>
+                        <div class="speed-options">
+                            <button class="speed-btn active" data-speed="45">45</button>
+                            <button class="speed-btn" data-speed="33">33</button>
+                        </div>
+                    </div>
+                    
+                    <div class="power-indicator">
+                        <div class="power-light" id="power-light"></div>
+                        <div class="power-label">POWER</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <!-- Main Controls -->
+                <div class="main-controls">
+                    <button class="vinyl-control-btn prev-btn" id="prev-btn" title="Previous Track">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="vinyl-control-btn play-pause-btn" id="play-pause-btn" title="Play/Pause">
+                        <i class="fas fa-play" id="play-icon"></i>
+                    </button>
+                    <button class="vinyl-control-btn next-btn" id="next-btn" title="Next Track">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                    <button class="vinyl-control-btn loop-btn" id="loop-btn" title="Toggle Loop">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+                
+                <!-- Progress Display -->
+                <div class="progress-display">
+                    <div class="time-counter">
+                        <div class="time-label">TIME</div>
+                        <div class="time-digits">
+                            <span id="current-time">00:00</span>
+                            <span class="time-separator">/</span>
+                            <span id="total-time">00:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-track">
+                        <div class="progress-bar" id="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                            <div class="progress-needle" id="progress-needle"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Volume Control -->
+                <div class="volume-control">
+                    <div class="volume-label">VOLUME</div>
+                    <div class="volume-knob-container">
+                        <div class="volume-knob" id="volume-knob">
+                            <div class="knob-indicator"></div>
+                        </div>
+                        <button class="mute-btn" id="volume-btn" title="Mute/Unmute">
+                            <i class="fas fa-volume-up" id="volume-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Track Selection -->
+            <div class="track-selection">
+                <div class="selection-header">
+                    <div class="collection-title">VINYL COLLECTION</div>
+                    <div class="collection-subtitle">Select a record to play</div>
+                </div>
+                
+                <div class="track-grid" id="track-grid">
+                    <!-- Tracks will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hidden Audio Element -->
+        <audio id="audio-player" preload="metadata"></audio>
+    </div>
+    <div class="resize-handle"></div>
+</div>

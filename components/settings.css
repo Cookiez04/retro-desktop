@@ -1,0 +1,598 @@
+/* Settings.app - Retro Control Panel Styles */
+
+.settings-window {
+    width: 600px;
+    height: 500px;
+    background: linear-gradient(145deg, #c0c0c0, #a0a0a0);
+    border: 2px outset #c0c0c0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.settings-content {
+    padding: 0;
+    height: calc(100% - 30px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Settings Navigation Tabs */
+.settings-tabs {
+    display: flex;
+    background: linear-gradient(180deg, #e0e0e0, #c0c0c0);
+    border-bottom: 2px inset #c0c0c0;
+    padding: 4px;
+    gap: 2px;
+}
+
+.settings-tab {
+    flex: 1;
+    padding: 8px 12px;
+    background: linear-gradient(180deg, #e0e0e0, #c0c0c0);
+    border: 1px outset #c0c0c0;
+    color: #000;
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.settings-tab:hover {
+    background: linear-gradient(180deg, #f0f0f0, #d0d0d0);
+}
+
+.settings-tab.active {
+    background: linear-gradient(180deg, #fff, #e0e0e0);
+    border: 1px inset #c0c0c0;
+    color: #000080;
+    font-weight: bold;
+}
+
+.settings-tab i {
+    font-size: 14px;
+}
+
+/* Settings Panels */
+.settings-panels {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.settings-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    background: #c0c0c0;
+    overflow-y: auto;
+    display: none;
+}
+
+.settings-panel.active {
+    display: block;
+}
+
+/* Panel Headers */
+.panel-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px inset #c0c0c0;
+}
+
+.panel-header h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    color: #000080;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel-header p {
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+/* Setting Groups */
+.setting-group {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(145deg, #d0d0d0, #b0b0b0);
+    border: 1px inset #c0c0c0;
+    border-radius: 4px;
+}
+
+.setting-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.setting-label i {
+    color: #000080;
+    font-size: 16px;
+}
+
+/* Theme Options */
+.theme-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+}
+
+.theme-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: #e0e0e0;
+    border: 2px outset #c0c0c0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'VT323', monospace;
+    font-size: 11px;
+    text-align: center;
+}
+
+.theme-option:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.theme-option.active {
+    border: 2px inset #c0c0c0;
+    background: #fff;
+    color: #000080;
+    font-weight: bold;
+}
+
+.theme-preview {
+    width: 60px;
+    height: 40px;
+    border: 1px solid #999;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.retro-preview {
+    background: linear-gradient(135deg, #000080, #4a0e4e, #00ffff);
+}
+
+.dark-preview {
+    background: linear-gradient(135deg, #1a1a1a, #333, #555);
+}
+
+.light-preview {
+    background: linear-gradient(135deg, #fff, #f0f0f0, #e0e0e0);
+}
+
+.cyberpunk-preview {
+    background: linear-gradient(135deg, #000, #39ff14, #ff00ff);
+}
+
+/* Wallpaper Options */
+.wallpaper-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+}
+
+.wallpaper-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
+    background: #e0e0e0;
+    border: 2px outset #c0c0c0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'VT323', monospace;
+    font-size: 10px;
+    text-align: center;
+}
+
+.wallpaper-option:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.wallpaper-option.active {
+    border: 2px inset #c0c0c0;
+    background: #fff;
+    color: #000080;
+    font-weight: bold;
+}
+
+.wallpaper-preview {
+    width: 50px;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-preview {
+    background: linear-gradient(135deg, #000080, #4a0e4e, #00ffff);
+    animation: gradientShift 3s ease infinite;
+}
+
+.vaporwave-preview {
+    background: linear-gradient(45deg, #ff6ec7, #00ffff);
+    background-image: 
+        linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1) 76%, transparent 77%, transparent);
+    background-size: 10px 10px;
+}
+
+.stars-preview {
+    background: #000;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 70px, #fff, transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent);
+    background-repeat: repeat;
+    background-size: 50px 80px;
+}
+
+.matrix-preview {
+    background: #000;
+    color: #39ff14;
+    font-family: monospace;
+    font-size: 6px;
+    line-height: 1;
+    overflow: hidden;
+}
+
+.matrix-preview::before {
+    content: "01010101\A 10101010\A 01010101";
+    white-space: pre;
+    animation: matrixRain 2s linear infinite;
+}
+
+@keyframes matrixRain {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+.solid-preview {
+    background: #808080;
+}
+
+/* Control Elements */
+.setting-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checkbox-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+}
+
+.checkbox-control input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #000080;
+}
+
+.slider-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.slider-control input[type="range"] {
+    flex: 1;
+    height: 6px;
+    background: #999;
+    border: 1px inset #c0c0c0;
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border: 1px outset #c0c0c0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.slider-control input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border: 1px outset #c0c0c0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.slider-value {
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000080;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* Volume Controls */
+.volume-control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.volume-toggle-btn {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border: 2px outset #c0c0c0;
+    border-radius: 4px;
+    color: #000;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.volume-toggle-btn:hover {
+    background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+}
+
+.volume-toggle-btn:active {
+    border: 2px inset #c0c0c0;
+}
+
+.volume-toggle-btn.muted {
+    color: #ff0000;
+    background: linear-gradient(145deg, #ffcccc, #ffaaaa);
+}
+
+/* Audio Controls */
+.audio-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Time Settings */
+.time-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.time-display {
+    padding: 10px;
+    background: #000;
+    color: #39ff14;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    text-align: center;
+    border: 2px inset #c0c0c0;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* System Info */
+.system-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px inset #c0c0c0;
+    border-radius: 2px;
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #000080;
+}
+
+.info-value {
+    color: #000;
+}
+
+/* Reset Controls */
+.reset-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.reset-btn {
+    padding: 10px 20px;
+    background: linear-gradient(145deg, #ffcccc, #ff9999);
+    border: 2px outset #ff9999;
+    border-radius: 4px;
+    color: #800000;
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-transform: uppercase;
+}
+
+.reset-btn:hover {
+    background: linear-gradient(145deg, #ffdddd, #ffaaaa);
+    transform: translateY(-2px);
+}
+
+.reset-btn:active {
+    border: 2px inset #ff9999;
+    transform: translateY(0);
+}
+
+.reset-warning {
+    font-family: 'VT323', monospace;
+    font-size: 11px;
+    color: #666;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Settings Footer */
+.settings-footer {
+    padding: 15px 20px;
+    background: linear-gradient(180deg, #e0e0e0, #c0c0c0);
+    border-top: 2px inset #c0c0c0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.settings-btn {
+    padding: 8px 20px;
+    border: 2px outset #c0c0c0;
+    border-radius: 4px;
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+}
+
+.apply-btn {
+    background: linear-gradient(145deg, #ccffcc, #99ff99);
+    color: #006600;
+}
+
+.apply-btn:hover {
+    background: linear-gradient(145deg, #ddffdd, #aaffaa);
+    transform: translateY(-2px);
+}
+
+.apply-btn:active {
+    border: 2px inset #99ff99;
+    transform: translateY(0);
+}
+
+.cancel-btn {
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    color: #000;
+}
+
+.cancel-btn:hover {
+    background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+    transform: translateY(-2px);
+}
+
+.cancel-btn:active {
+    border: 2px inset #c0c0c0;
+    transform: translateY(0);
+}
+
+/* Scrollbar Styling */
+.settings-panel::-webkit-scrollbar {
+    width: 16px;
+}
+
+.settings-panel::-webkit-scrollbar-track {
+    background: #c0c0c0;
+    border: 1px inset #c0c0c0;
+}
+
+.settings-panel::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #e0e0e0, #a0a0a0);
+    border: 1px outset #c0c0c0;
+}
+
+.settings-panel::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(145deg, #f0f0f0, #b0b0b0);
+}
+
+.settings-panel::-webkit-scrollbar-button {
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border: 1px outset #c0c0c0;
+    height: 16px;
+}
+
+.settings-panel::-webkit-scrollbar-button:hover {
+    background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+    .settings-window {
+        width: 95vw;
+        height: 90vh;
+    }
+    
+    .settings-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .settings-tab {
+        flex: 1 1 50%;
+        min-width: 120px;
+    }
+    
+    .theme-options,
+    .wallpaper-options {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+    
+    .settings-footer {
+        flex-direction: column;
+    }
+    
+    .settings-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

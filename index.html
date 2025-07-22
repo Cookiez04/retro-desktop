@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro Desktop</title>
     <link rel="stylesheet" href="styles/retro.css">
+    <link rel="stylesheet" href="components/mixtape.css?v=2">
+    <link rel="stylesheet" href="components/settings.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -40,6 +42,16 @@
         <div class="desktop-icon" data-window="notepad">
             <i class="fas fa-sticky-note"></i>
             <span>Notepad</span>
+        </div>
+        
+        <div class="desktop-icon" data-window="mixtape">
+            <i class="fas fa-music"></i>
+            <span>Mixtape</span>
+        </div>
+        
+        <div class="desktop-icon" data-window="settings">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
         </div>
     </div>
 
@@ -257,6 +269,395 @@ Enjoy your stay in the past! 🕹️</textarea>
         </div>
     </div>
 
+    <!-- Mixtape.app Window -->
+    <div class="window mixtape-window" id="mixtape-window" style="display: none;">
+        <div class="window-header">
+            <div class="window-title">
+                <i class="fas fa-record-vinyl"></i>
+                Vinyl Player
+            </div>
+            <div class="window-controls">
+                <button class="minimize-btn">_</button>
+                <button class="maximize-btn">□</button>
+                <button class="close-btn">×</button>
+            </div>
+        </div>
+        <div class="window-content vinyl-content">
+            <!-- Vinyl Record Player -->
+            <div class="vinyl-player">
+                <!-- Turntable Base -->
+                <div class="turntable-base">
+                    <!-- Vinyl Record -->
+                    <div class="vinyl-record" id="vinyl-record">
+                        <div class="vinyl-surface">
+                            <!-- Vinyl grooves -->
+                            <div class="vinyl-groove groove-1"></div>
+                            <div class="vinyl-groove groove-2"></div>
+                            <div class="vinyl-groove groove-3"></div>
+                            <div class="vinyl-groove groove-4"></div>
+                            <div class="vinyl-groove groove-5"></div>
+                            <div class="vinyl-groove groove-6"></div>
+                            <div class="vinyl-groove groove-7"></div>
+                            <div class="vinyl-groove groove-8"></div>
+                            
+                            <!-- Center Label -->
+                            <div class="vinyl-label">
+                                <div class="label-ring"></div>
+                                <div class="label-content">
+                                    <div class="label-logo">♪ RETRO ♪</div>
+                                    <div class="track-info">
+                                        <div class="track-title" id="vinyl-track-title">Select Track</div>
+                                        <div class="track-artist" id="vinyl-track-artist">Artist</div>
+                                    </div>
+                                    <div class="label-number">45 RPM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tonearm -->
+                    <div class="tonearm" id="tonearm">
+                        <div class="tonearm-base"></div>
+                        <div class="tonearm-arm"></div>
+                        <div class="tonearm-head"></div>
+                    </div>
+                    
+                    <!-- Turntable Controls -->
+                    <div class="turntable-controls">
+                        <div class="speed-selector">
+                            <div class="speed-label">SPEED</div>
+                            <div class="speed-options">
+                                <button class="speed-btn active" data-speed="45">45</button>
+                                <button class="speed-btn" data-speed="33">33</button>
+                            </div>
+                        </div>
+                        
+                        <div class="power-indicator">
+                            <div class="power-light" id="power-light"></div>
+                            <div class="power-label">POWER</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Control Panel -->
+                <div class="control-panel">
+                    <!-- Main Controls -->
+                    <div class="main-controls">
+                        <button class="vinyl-control-btn prev-btn" id="prev-btn" title="Previous Track">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button class="vinyl-control-btn play-pause-btn" id="play-pause-btn" title="Play/Pause">
+                            <i class="fas fa-play" id="play-icon"></i>
+                        </button>
+                        <button class="vinyl-control-btn next-btn" id="next-btn" title="Next Track">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                        <button class="vinyl-control-btn loop-btn" id="loop-btn" title="Toggle Loop">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Progress Display -->
+                    <div class="progress-display">
+                        <div class="time-counter">
+                            <div class="time-label">TIME</div>
+                            <div class="time-digits">
+                                <span id="current-time">00:00</span>
+                                <span class="time-separator">/</span>
+                                <span id="total-time">00:00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-track">
+                            <div class="progress-bar" id="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                                <div class="progress-needle" id="progress-needle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Volume Control -->
+                    <div class="volume-control">
+                        <div class="volume-label">VOLUME</div>
+                        <div class="volume-knob-container">
+                            <div class="volume-knob" id="volume-knob">
+                                <div class="knob-indicator"></div>
+                            </div>
+                            <button class="mute-btn" id="volume-btn" title="Mute/Unmute">
+                                <i class="fas fa-volume-up" id="volume-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Track Selection -->
+                <div class="track-selection">
+                    <div class="selection-header">
+                        <div class="collection-title">VINYL COLLECTION</div>
+                        <div class="collection-subtitle">Select a record to play</div>
+                    </div>
+                    
+                    <div class="track-grid" id="track-grid">
+                        <!-- Tracks will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Audio Element -->
+            <audio id="audio-player" preload="metadata"></audio>
+        </div>
+        <div class="resize-handle"></div>
+    </div>
+
+    <!-- Settings.app Window -->
+    <div class="window settings-window" id="settings-window" style="display: none;">
+        <div class="window-header">
+            <div class="window-title">
+                <i class="fas fa-cog"></i>
+                Settings.app
+            </div>
+            <div class="window-controls">
+                <button class="minimize-btn">_</button>
+                <button class="maximize-btn">□</button>
+                <button class="close-btn">×</button>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="settings-container">
+                <div class="settings-nav">
+                    <div class="settings-tab active" data-tab="theme">
+                        <i class="fas fa-palette"></i>
+                        <span>Theme</span>
+                    </div>
+                    <div class="settings-tab" data-tab="wallpaper">
+                        <i class="fas fa-image"></i>
+                        <span>Wallpaper</span>
+                    </div>
+                    <div class="settings-tab" data-tab="audio">
+                        <i class="fas fa-volume-up"></i>
+                        <span>Audio</span>
+                    </div>
+                    <div class="settings-tab" data-tab="system">
+                        <i class="fas fa-desktop"></i>
+                        <span>System</span>
+                    </div>
+                </div>
+                
+                <div class="settings-content">
+                    <!-- Theme Panel -->
+                    <div class="settings-panel active" id="theme-panel">
+                        <h3>Theme Settings</h3>
+                        
+                        <div class="setting-group">
+                            <label>Color Scheme</label>
+                            <div class="theme-options">
+                                <div class="theme-option active" data-theme="retro">
+                                    <div class="theme-preview retro-preview"></div>
+                                    <span>Retro</span>
+                                </div>
+                                <div class="theme-option" data-theme="dark">
+                                    <div class="theme-preview dark-preview"></div>
+                                    <span>Dark</span>
+                                </div>
+                                <div class="theme-option" data-theme="light">
+                                    <div class="theme-preview light-preview"></div>
+                                    <span>Light</span>
+                                </div>
+                                <div class="theme-option" data-theme="cyberpunk">
+                                    <div class="theme-preview cyberpunk-preview"></div>
+                                    <span>Cyberpunk</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label>Visual Effects</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="crt-effects" checked>
+                                    <span class="checkmark"></span>
+                                    CRT Monitor Effects
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="particles" checked>
+                                    <span class="checkmark"></span>
+                                    Particle Effects
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="animations" checked>
+                                    <span class="checkmark"></span>
+                                    Smooth Animations
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Wallpaper Panel -->
+                    <div class="settings-panel" id="wallpaper-panel">
+                        <h3>Wallpaper Settings</h3>
+                        
+                        <div class="setting-group">
+                            <label>Background</label>
+                            <div class="wallpaper-options">
+                                <div class="wallpaper-option active" data-wallpaper="gradient">
+                                    <div class="wallpaper-preview gradient-preview"></div>
+                                    <span>Gradient</span>
+                                </div>
+                                <div class="wallpaper-option" data-wallpaper="stars">
+                                    <div class="wallpaper-preview stars-preview"></div>
+                                    <span>Stars</span>
+                                </div>
+                                <div class="wallpaper-option" data-wallpaper="grid">
+                                    <div class="wallpaper-preview grid-preview"></div>
+                                    <span>Grid</span>
+                                </div>
+                                <div class="wallpaper-option" data-wallpaper="waves">
+                                    <div class="wallpaper-preview waves-preview"></div>
+                                    <span>Waves</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label>Background Opacity</label>
+                            <div class="slider-container">
+                                <input type="range" id="bg-opacity" min="0.1" max="1" step="0.1" value="1">
+                                <span class="slider-value">100%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Audio Panel -->
+                    <div class="settings-panel" id="audio-panel">
+                        <h3>Audio Settings</h3>
+                        
+                        <div class="setting-group">
+                            <label>Master Volume</label>
+                            <div class="volume-control">
+                                <div class="slider-container">
+                                    <input type="range" id="master-volume" min="0" max="100" value="70">
+                                    <span class="slider-value">70%</span>
+                                </div>
+                                <button class="mute-btn" id="master-mute-btn">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label>Music Volume</label>
+                            <div class="volume-control">
+                                <div class="slider-container">
+                                    <input type="range" id="music-volume" min="0" max="100" value="70">
+                                    <span class="slider-value">70%</span>
+                                </div>
+                                <button class="mute-btn" id="music-mute-btn">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label>Music Player</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="music-enabled" checked>
+                                    <span class="checkmark"></span>
+                                    Enable Music Player
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label>System Sounds</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="system-sounds" checked>
+                                    <span class="checkmark"></span>
+                                    System Sound Effects
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="click-sounds" checked>
+                                    <span class="checkmark"></span>
+                                    Button Click Sounds
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- System Panel -->
+                    <div class="settings-panel" id="system-panel">
+                        <h3>System Settings</h3>
+                        
+                        <div class="setting-group">
+                            <label>Desktop Behavior</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="auto-arrange" checked>
+                                    <span class="checkmark"></span>
+                                    Auto-arrange Icons
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="double-click" checked>
+                                    <span class="checkmark"></span>
+                                    Double-click to Open
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="cursor-trail" checked>
+                                    <span class="checkmark"></span>
+                                    Cursor Trail Effect
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label>Time & Date</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="24-hour-format">
+                                    <span class="checkmark"></span>
+                                    24-hour Format
+                                </label>
+                            </div>
+                            <div class="time-display">
+                                <div>Current Time: <span id="current-time-display">12:00:00 PM</span></div>
+                                <div>Current Date: <span id="current-date-display">January 1, 2024</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label>System Information</label>
+                            <div class="system-info">
+                                <div>Browser: <span id="browser-info">Chrome</span></div>
+                                <div>Resolution: <span id="resolution-info">1920x1080</span></div>
+                                <div>Uptime: <span id="uptime-info">0:00:00</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label>Reset Settings</label>
+                            <button class="reset-btn" id="reset-settings-btn">
+                                <i class="fas fa-undo"></i>
+                                Reset to Defaults
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-footer">
+                    <button class="settings-btn apply-btn" id="apply-settings">
+                        <i class="fas fa-check"></i>
+                        Apply
+                    </button>
+                    <button class="settings-btn cancel-btn" id="cancel-settings">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Start Menu -->
     <div class="start-menu" id="start-menu">
         <div class="start-menu-header">
@@ -283,6 +684,14 @@ Enjoy your stay in the past! 🕹️</textarea>
             <div class="start-menu-item" data-window="notepad">
                 <i class="fas fa-sticky-note"></i>
                 <span>Notepad</span>
+            </div>
+            <div class="start-menu-item" data-window="mixtape">
+                <i class="fas fa-music"></i>
+                <span>Mixtape</span>
+            </div>
+            <div class="start-menu-item" data-window="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
             </div>
             <hr>
             <div class="start-menu-item" id="shutdown-btn">
@@ -328,5 +737,7 @@ Enjoy your stay in the past! 🕹️</textarea>
     </div>
 
     <script src="scripts/desktop.js"></script>
+    <script src="components/mixtape.js?v=6"></script>
+    <script src="components/settings.js"></script>
 </body>
-</html> 
+</html>

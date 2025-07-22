@@ -1,0 +1,301 @@
+<!-- Settings.app - Retro Control Panel -->
+<div class="window settings-window" id="settings-window" style="display: none;">
+    <div class="window-header">
+        <div class="window-title">
+            <i class="fas fa-cog"></i>
+            Settings.app
+        </div>
+        <div class="window-controls">
+            <button class="minimize-btn">_</button>
+            <button class="maximize-btn">□</button>
+            <button class="close-btn">×</button>
+        </div>
+    </div>
+    <div class="window-content settings-content">
+        <!-- Settings Navigation Tabs -->
+        <div class="settings-tabs">
+            <button class="settings-tab active" data-tab="theme">
+                <i class="fas fa-palette"></i>
+                <span>Theme</span>
+            </button>
+            <button class="settings-tab" data-tab="wallpaper">
+                <i class="fas fa-image"></i>
+                <span>Wallpaper</span>
+            </button>
+            <button class="settings-tab" data-tab="audio">
+                <i class="fas fa-volume-up"></i>
+                <span>Audio</span>
+            </button>
+            <button class="settings-tab" data-tab="system">
+                <i class="fas fa-desktop"></i>
+                <span>System</span>
+            </button>
+        </div>
+
+        <!-- Settings Content Panels -->
+        <div class="settings-panels">
+            <!-- Theme Panel -->
+            <div class="settings-panel active" id="theme-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-palette"></i> Theme Settings</h3>
+                    <p>Customize the visual appearance of your desktop</p>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-moon"></i>
+                        Color Scheme
+                    </label>
+                    <div class="theme-options">
+                        <div class="theme-option active" data-theme="retro">
+                            <div class="theme-preview retro-preview"></div>
+                            <span>Retro (Default)</span>
+                        </div>
+                        <div class="theme-option" data-theme="dark">
+                            <div class="theme-preview dark-preview"></div>
+                            <span>Dark Mode</span>
+                        </div>
+                        <div class="theme-option" data-theme="light">
+                            <div class="theme-preview light-preview"></div>
+                            <span>Light Mode</span>
+                        </div>
+                        <div class="theme-option" data-theme="cyberpunk">
+                            <div class="theme-preview cyberpunk-preview"></div>
+                            <span>Cyberpunk</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-sparkles"></i>
+                        Visual Effects
+                    </label>
+                    <div class="setting-controls">
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="crt-effects" checked>
+                            <label for="crt-effects">CRT Monitor Effects</label>
+                        </div>
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="particles" checked>
+                            <label for="particles">Particle Effects</label>
+                        </div>
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="animations" checked>
+                            <label for="animations">Window Animations</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallpaper Panel -->
+            <div class="settings-panel" id="wallpaper-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-image"></i> Wallpaper Settings</h3>
+                    <p>Choose your desktop background</p>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-images"></i>
+                        Background Style
+                    </label>
+                    <div class="wallpaper-options">
+                        <div class="wallpaper-option active" data-wallpaper="gradient">
+                            <div class="wallpaper-preview gradient-preview"></div>
+                            <span>Animated Gradient</span>
+                        </div>
+                        <div class="wallpaper-option" data-wallpaper="vaporwave">
+                            <div class="wallpaper-preview vaporwave-preview"></div>
+                            <span>Vaporwave Grid</span>
+                        </div>
+                        <div class="wallpaper-option" data-wallpaper="stars">
+                            <div class="wallpaper-preview stars-preview"></div>
+                            <span>Starfield</span>
+                        </div>
+                        <div class="wallpaper-option" data-wallpaper="matrix">
+                            <div class="wallpaper-preview matrix-preview"></div>
+                            <span>Matrix Rain</span>
+                        </div>
+                        <div class="wallpaper-option" data-wallpaper="solid">
+                            <div class="wallpaper-preview solid-preview"></div>
+                            <span>Solid Color</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-sliders-h"></i>
+                        Background Opacity
+                    </label>
+                    <div class="slider-control">
+                        <input type="range" id="bg-opacity" min="0.3" max="1" step="0.1" value="1">
+                        <span class="slider-value">100%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Panel -->
+            <div class="settings-panel" id="audio-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-volume-up"></i> Audio Settings</h3>
+                    <p>Control system and application audio</p>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-volume-up"></i>
+                        Master Volume
+                    </label>
+                    <div class="volume-control-group">
+                        <button class="volume-toggle-btn" id="master-mute-btn">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <div class="slider-control">
+                            <input type="range" id="master-volume" min="0" max="100" value="70">
+                            <span class="slider-value">70%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-music"></i>
+                        Music Player
+                    </label>
+                    <div class="audio-controls">
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="music-enabled" checked>
+                            <label for="music-enabled">Enable Music Player</label>
+                        </div>
+                        <div class="volume-control-group">
+                            <button class="volume-toggle-btn" id="music-mute-btn">
+                                <i class="fas fa-music"></i>
+                            </button>
+                            <div class="slider-control">
+                                <input type="range" id="music-volume" min="0" max="100" value="70">
+                                <span class="slider-value">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-bell"></i>
+                        System Sounds
+                    </label>
+                    <div class="setting-controls">
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="system-sounds" checked>
+                            <label for="system-sounds">Enable System Sounds</label>
+                        </div>
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="click-sounds" checked>
+                            <label for="click-sounds">Button Click Sounds</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Panel -->
+            <div class="settings-panel" id="system-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-desktop"></i> System Settings</h3>
+                    <p>Configure desktop behavior and performance</p>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-mouse-pointer"></i>
+                        Desktop Behavior
+                    </label>
+                    <div class="setting-controls">
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="auto-arrange" checked>
+                            <label for="auto-arrange">Auto-arrange Icons</label>
+                        </div>
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="double-click" checked>
+                            <label for="double-click">Double-click to Open</label>
+                        </div>
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="cursor-trail" checked>
+                            <label for="cursor-trail">Cursor Trail Effect</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-clock"></i>
+                        Time & Date
+                    </label>
+                    <div class="time-settings">
+                        <div class="time-display">
+                            <span id="current-time-display">12:00:00 PM</span>
+                            <span id="current-date-display">January 1, 2024</span>
+                        </div>
+                        <div class="checkbox-control">
+                            <input type="checkbox" id="24-hour-format">
+                            <label for="24-hour-format">24-hour Format</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-info-circle"></i>
+                        System Information
+                    </label>
+                    <div class="system-info">
+                        <div class="info-item">
+                            <span class="info-label">OS:</span>
+                            <span class="info-value">Retro Desktop v1.0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Browser:</span>
+                            <span class="info-value" id="browser-info">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Resolution:</span>
+                            <span class="info-value" id="resolution-info">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Uptime:</span>
+                            <span class="info-value" id="uptime-info">0:00:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <i class="fas fa-undo"></i>
+                        Reset Settings
+                    </label>
+                    <div class="reset-controls">
+                        <button class="reset-btn" id="reset-settings-btn">
+                            <i class="fas fa-undo"></i>
+                            Reset to Defaults
+                        </button>
+                        <p class="reset-warning">This will restore all settings to their default values.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Apply/Cancel Buttons -->
+        <div class="settings-footer">
+            <button class="settings-btn apply-btn" id="apply-settings">
+                <i class="fas fa-check"></i>
+                Apply
+            </button>
+            <button class="settings-btn cancel-btn" id="cancel-settings">
+                <i class="fas fa-times"></i>
+                Cancel
+            </button>
+        </div>
+    </div>
+    <div class="resize-handle"></div>
+</div>

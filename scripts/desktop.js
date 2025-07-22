@@ -117,6 +117,7 @@ class RetroDesktop {
         windows.forEach(window => {
             this.setupWindowControls(window);
             this.setupWindowDragging(window);
+            this.setupWindowResizing(window);
         });
     }
 
@@ -229,9 +230,17 @@ class RetroDesktop {
 
         // Check if window is already open
         if (this.openWindows.has(windowType)) {
+            // For settings window, toggle close instead of just focusing
+            if (windowType === 'settings') {
+                this.closeWindow(window);
+                return;
+            }
             this.focusWindow(windowType);
             return;
         }
+
+        // Ensure window controls are properly set up (fix for settings window)
+        this.setupWindowControls(window);
 
         // Position window
         const offset = this.openWindows.size * 30;
@@ -250,6 +259,9 @@ class RetroDesktop {
         this.focusWindow(windowType);
         this.updateTaskbar();
         this.playWindowOpenSound();
+        
+        // Initialize app-specific functionality
+        this.initializeApp(windowType);
     }
 
     focusWindow(windowType) {
@@ -270,35 +282,122 @@ class RetroDesktop {
         
         if (windowData) {
             windowData.minimized = true;
-            window.style.display = 'none';
+            windowData.previousState = {
+                display: window.style.display,
+                transform: window.style.transform
+            };
+            
+            // Animate to taskbar
+            window.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            window.style.transform = 'scale(0.1) translateY(200px)';
+            window.style.opacity = '0';
+            
+            setTimeout(() => {
+                window.style.display = 'none';
+                window.style.transition = '';
+                window.style.transform = '';
+                window.style.opacity = '';
+            }, 300);
+            
             this.updateTaskbar();
         }
     }
 
     maximizeWindow(window) {
-        const currentWidth = window.offsetWidth;
-        const currentHeight = window.offsetHeight;
+        const windowType = this.getWindowType(window);
+        const windowData = this.openWindows.get(windowType);
         
-        if (currentWidth < window.innerWidth * 0.8) {
+        if (!windowData) return;
+        
+        const isMaximized = windowData.maximized || false;
+        
+        window.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        if (!isMaximized) {
+            // Store current state before maximizing
+            windowData.restoreState = {
+                width: window.style.width || window.offsetWidth + 'px',
+                height: window.style.height || window.offsetHeight + 'px',
+                left: window.style.left || window.offsetLeft + 'px',
+                top: window.style.top || window.offsetTop + 'px'
+            };
+            
             // Maximize
-            window.style.width = '80%';
-            window.style.height = '70%';
-            window.style.left = '10%';
-            window.style.top = '10%';
+            window.style.width = 'calc(100vw - 20px)';
+            window.style.height = 'calc(100vh - 60px)';
+            window.style.left = '10px';
+            window.style.top = '10px';
+            windowData.maximized = true;
+            
+            // Update maximize button
+            const maxBtn = window.querySelector('.maximize-btn');
+            if (maxBtn) maxBtn.textContent = '❐';
+            
         } else {
             // Restore
-            window.style.width = '400px';
-            window.style.height = '300px';
-            window.style.left = '100px';
-            window.style.top = '100px';
+            const restore = windowData.restoreState;
+            window.style.width = restore.width;
+            window.style.height = restore.height;
+            window.style.left = restore.left;
+            window.style.top = restore.top;
+            windowData.maximized = false;
+            
+            // Update maximize button
+            const maxBtn = window.querySelector('.maximize-btn');
+            if (maxBtn) maxBtn.textContent = '□';
         }
+        
+        setTimeout(() => {
+            window.style.transition = '';
+        }, 300);
+    }
+
+    restoreWindow(windowType) {
+        const windowData = this.openWindows.get(windowType);
+        if (!windowData || !windowData.minimized) return;
+        
+        const window = windowData.element;
+        windowData.minimized = false;
+        
+        // Animate restore from taskbar
+        window.style.display = 'block';
+        window.style.transform = 'scale(0.1) translateY(200px)';
+        window.style.opacity = '0';
+        window.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        // Force reflow
+        window.offsetHeight;
+        
+        window.style.transform = 'scale(1) translateY(0)';
+        window.style.opacity = '1';
+        
+        setTimeout(() => {
+            window.style.transition = '';
+            window.style.transform = '';
+            window.style.opacity = '';
+        }, 300);
+        
+        this.focusWindow(windowType);
+        this.updateTaskbar();
     }
 
     closeWindow(window) {
         const windowType = this.getWindowType(window);
-        this.openWindows.delete(windowType);
-        window.style.display = 'none';
-        this.updateTaskbar();
+        
+        // Animate close
+        window.style.transition = 'all 0.2s ease-out';
+        window.style.transform = 'scale(0.8)';
+        window.style.opacity = '0';
+        
+        setTimeout(() => {
+            this.openWindows.delete(windowType);
+            window.style.display = 'none';
+            window.style.transition = '';
+            window.style.transform = '';
+            window.style.opacity = '';
+            this.updateTaskbar();
+        }, 200);
+        
         this.playWindowCloseSound();
     }
 
@@ -336,6 +435,50 @@ class RetroDesktop {
         this.isDragging = false;
     }
 
+    setupWindowResizing(window) {
+        const resizeHandle = window.querySelector('.resize-handle');
+        if (!resizeHandle) return;
+
+        let isResizing = false;
+        let startX, startY, startWidth, startHeight;
+
+        resizeHandle.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+            isResizing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startWidth = parseInt(document.defaultView.getComputedStyle(window).width, 10);
+            startHeight = parseInt(document.defaultView.getComputedStyle(window).height, 10);
+            
+            document.addEventListener('mousemove', handleResize);
+            document.addEventListener('mouseup', stopResize);
+        });
+
+        const handleResize = (e) => {
+            if (!isResizing) return;
+            
+            const newWidth = startWidth + e.clientX - startX;
+            const newHeight = startHeight + e.clientY - startY;
+            
+            // Set minimum window size
+            const minWidth = 300;
+            const minHeight = 200;
+            
+            if (newWidth >= minWidth) {
+                window.style.width = newWidth + 'px';
+            }
+            if (newHeight >= minHeight) {
+                window.style.height = newHeight + 'px';
+            }
+        };
+
+        const stopResize = () => {
+            isResizing = false;
+            document.removeEventListener('mousemove', handleResize);
+            document.removeEventListener('mouseup', stopResize);
+        };
+    }
+
     // Start Menu
     toggleStartMenu() {
         if (this.startMenuOpen) {
@@ -363,23 +506,25 @@ class RetroDesktop {
         taskbarWindows.innerHTML = '';
 
         this.openWindows.forEach((windowData, windowType) => {
-            if (!windowData.minimized) {
-                const taskbarItem = this.createTaskbarItem(windowType);
-                taskbarWindows.appendChild(taskbarItem);
-            }
+            const taskbarItem = this.createTaskbarItem(windowType, windowData.minimized);
+            taskbarWindows.appendChild(taskbarItem);
         });
     }
 
-    createTaskbarItem(windowType) {
+    createTaskbarItem(windowType, isMinimized) {
         const item = document.createElement('div');
-        item.className = 'taskbar-window';
+        item.className = `taskbar-window ${isMinimized ? 'minimized' : ''}`;
         item.innerHTML = `
             <i class="fas fa-${this.getWindowIcon(windowType)}"></i>
             <span>${this.getWindowTitle(windowType)}</span>
         `;
         
         item.addEventListener('click', () => {
-            this.focusWindow(windowType);
+            if (isMinimized) {
+                this.restoreWindow(windowType);
+            } else {
+                this.focusWindow(windowType);
+            }
         });
 
         return item;
@@ -408,7 +553,9 @@ class RetroDesktop {
             resume: 'file-pdf',
             recycle: 'trash',
             paint: 'paint-brush',
-            notepad: 'sticky-note'
+            notepad: 'sticky-note',
+            mixtape: 'cassette-tape',
+            settings: 'cog'
         };
         return icons[windowType] || 'window-maximize';
     }
@@ -420,9 +567,27 @@ class RetroDesktop {
             resume: 'Resume.pdf',
             recycle: 'Recycle Bin',
             paint: 'Paint',
-            notepad: 'Notepad'
+            notepad: 'Notepad',
+            mixtape: 'Mixtape.app',
+            settings: 'Settings.app'
         };
         return titles[windowType] || windowType;
+    }
+
+    // App Initialization
+    initializeApp(windowType) {
+        switch (windowType) {
+            case 'mixtape':
+                if (typeof initVinylPlayer === 'function') {
+                    initVinylPlayer();
+                }
+                break;
+            case 'settings':
+                if (typeof initSettingsApp === 'function') {
+                    initSettingsApp();
+                }
+                break;
+        }
     }
 
     // Paint App
